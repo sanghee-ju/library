@@ -15,15 +15,17 @@ datasource db {
 model USER{
   ID String @id
   PW String
-  FAM_ID String
+  FAM_ID String @unique
   PHONE String
   NAME String
   AGE Int
+  FAMILY FAMILY @relation(fields: [FAM_ID],references: [ID])
 }
 
 model FAMILY{
   ID String @id
   ADDRESS String
+  USER USER? // 외래키 설정 시, 참조가 되는 릴레이션에 참조하는 모델 추가 
 }
 
 //BOOK
@@ -34,25 +36,35 @@ model BOOKS{
   PUBLISHER String? //'?' - null을 허용함을 표시
   QUANTITY Int
   IMG_URL String
+  BOOK_STATUS BOOK_STATUS?
 }
 
 model BOOK_STATUS{
-  ISBN String @id
+  ISBN String @id 
   STATUS_LEVEL Int
   LOST Boolean
   DAMAGED Boolean
+  BOOKS BOOKS @relation(fields: [ISBN],references: [ISBN])
 }
 
 model CHECKOUT_STATUS{
   CHECK_NUMBER String @id
-  CHECK_USER String
-  CHECK_BOOK String
+  CHECK_USER String 
+  CHECK_BOOK String 
   CHECK_DATE DateTime @default(now())
 }
 
 model RESERVE_LIST{
   RSV_NUM String @id
-  RSV_BOOK String
-  RSV_USER String
+  RSV_BOOK String 
+  RSV_USER String 
   RSV_DATE DateTime @default(now())
+}
+
+// 연체 리스트
+model DELAY_LIST{
+  DLY_NUM String @id
+  DLY_BOOK String
+  DLY_USER String
+  EXP_DATE DateTime @default(now())
 }
