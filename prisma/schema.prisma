@@ -10,6 +10,8 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
+
 //모델 - Prisma가 우리가 작성한 모델을 기반으로, DB 수정해줌.
 // USER
 model USER{
@@ -29,42 +31,42 @@ model FAMILY{
 }
 
 //BOOK
-model BOOKS{
-  ISBN String @id // @id :기본키 설정하기
-  TITLE String
-  AUTHOR String?
-  PUBLISHER String? //'?' - null을 허용함을 표시
-  QUANTITY Int
-  IMG_URL String
-  BOOK_STATUS BOOK_STATUS?
-}
+// model BOOKS{
+//   ISBN String @id // @id :기본키 설정하기
+//   TITLE String
+//   AUTHOR String?
+//   PUBLISHER String? //'?' - null을 허용함을 표시
+//   QUANTITY Int
+//   IMG_URL String
+//   BOOK_STATUS BOOK_STATUS?
+// }
 
-model BOOK_STATUS{
-  ISBN String @id 
-  STATUS_LEVEL Int
-  LOST Boolean
-  DAMAGED Boolean
-  BOOKS BOOKS @relation(fields: [ISBN],references: [ISBN])
-}
+// model BOOK_STATUS{
+//   ISBN String @id 
+//   STATUS_LEVEL Int
+//   LOST Boolean
+//   DAMAGED Boolean
+//   BOOKS BOOKS @relation(fields: [ISBN],references: [ISBN])
+// }
 
-model CHECKOUT_STATUS{
-  CHECK_NUMBER String @id
-  CHECK_USER String 
-  CHECK_BOOK String 
-  CHECK_DATE DateTime @default(now())
-}
+// model CHECKOUT_STATUS{
+//   CHECK_NUMBER String @id
+//   CHECK_USER String 
+//   CHECK_BOOK String 
+//   CHECK_DATE DateTime @default(now())
+// }
 
-model RESERVE_LIST{
-  RSV_NUM String @id
-  RSV_BOOK String 
-  RSV_USER String 
-  RSV_DATE DateTime @default(now())
-}
+// model RESERVE_LIST{
+//   RSV_NUM String @id
+//   RSV_BOOK String 
+//   RSV_USER String 
+//   RSV_DATE DateTime @default(now())
+// }
 
-// 연체 리스트
-model DELAY_LIST{
-  DLY_NUM String @id
-  DLY_BOOK String
-  DLY_USER String
-  EXP_DATE DateTime @default(now())
-}
+// // 연체 리스트
+// model DELAY_LIST{
+//   DLY_NUM String @id
+//   DLY_BOOK String
+//   DLY_USER String
+//   EXP_DATE DateTime @default(now())
+// }
